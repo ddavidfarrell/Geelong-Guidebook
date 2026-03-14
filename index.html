@@ -1,428 +1,517 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Victoria 2026 Wiki</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Trip Guide - Victoria 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600;700&display=swap');
         
-        :root {
-            --wiki-blue: #002b5c;
-            --wiki-border: #e5e7eb;
-            --wiki-bg: #f3f4f6;
-        }
-
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: var(--wiki-bg);
-            color: #1f2937;
-            line-height: 1.5;
-        }
-
-        h1, h2, .wiki-heading { 
-            font-family: 'Playfair Display', serif; 
-        }
-
-        .wiki-card {
-            background: white;
-            border: 1px solid var(--wiki-border);
-            margin-bottom: 1rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .wiki-header {
-            background: var(--wiki-blue);
-            color: white;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .sidebar-data {
-            background: #f8fafc;
-            border-left: 3px solid var(--wiki-blue);
-            padding: 0.75rem;
-            font-size: 0.875rem;
-        }
-
-        .status-pill {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 9999px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.025em;
-        }
-
-        /* Geelong Cats Special UI */
-        .cats-brand {
-            background: var(--wiki-blue);
-            color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 2px solid white;
-        }
-
-        .goalpost-row {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 12px;
-            padding: 1rem 0;
+            background-color: #fcfcfd; 
+            color: #334155; 
+            -webkit-font-smoothing: antialiased;
         }
         
-        .post { background: rgba(255,255,255,0.3); width: 8px; border-radius: 2px 2px 0 0; }
-        .post.main { height: 40px; background: rgba(255,255,255,0.6); }
-        .post.side { height: 25px; }
+        h1, h2 { font-family: 'Playfair Display', serif; }
 
-        .jump-link {
-            display: inline-block;
-            white-space: nowrap;
-            padding: 6px 14px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 700;
-            margin-right: 6px;
-            text-decoration: none;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border: 1px solid rgba(255,255,255,0.2);
+        /* Responsive Card Styling */
+        .section-card { 
+            background: white; 
+            border-radius: 12px; 
+            border: 1px solid #f1f5f9; 
+            padding: 1.25rem; 
+            margin-bottom: 1.5rem; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
+        }
+        
+        @media (min-width: 768px) {
+            .section-card { padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
         }
 
-        /* Mobile Utility */
-        .no-tap-highlight { -webkit-tap-highlight-color: transparent; }
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        .group-container { 
+            background: #f8fafc; 
+            border-radius: 12px; 
+            padding: 1rem; 
+            margin-bottom: 0.75rem; 
+            border: 1px solid #e2e8f0; 
+        }
+
+        .arrival-container { 
+            border-left: 4px solid #10b981; 
+            background: #f0fdf4; 
+            padding: 1.25rem; 
+            border-radius: 0 12px 12px 0; 
+        }
+
+        .car-container { 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 10px; 
+            padding: 0.75rem; 
+        }
+
+        .step-pill { 
+            background: #3b82f6; 
+            color: white; 
+            width: 22px; 
+            height: 22px; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-radius: 50%; 
+            font-size: 11px; 
+            font-weight: bold; 
+            flex-shrink: 0; 
+        }
+
+        .info-label { 
+            text-transform: uppercase; 
+            font-size: 10px; 
+            font-weight: 700; 
+            color: #94a3b8; 
+            letter-spacing: 0.05em; 
+            margin-bottom: 2px; 
+            display: block;
+        }
+
+        .feature-tag { 
+            font-size: 10px; 
+            font-weight: 700; 
+            color: #64748b; 
+            background: #f1f5f9; 
+            padding: 2px 8px; 
+            border-radius: 10px; 
+            margin-right: 4px; 
+            margin-bottom: 4px; 
+            display: inline-block; 
+        }
+
+        .eta-deadline-alert { 
+            background: #fef2f2; 
+            border: 2px solid #ef4444; 
+            border-radius: 12px; 
+            padding: 1.25rem; 
+            margin-bottom: 1.5rem; 
+        }
+        
+        .voltage-status { 
+            border-radius: 10px; 
+            padding: 1rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            border: 1px solid transparent; 
+        }
+        .status-pass { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
+        .status-fail { background: #fef2f2; border-color: #fecaca; color: #991b1b; }
+        
+        .outlet-switch-icon { 
+            width: 18px; 
+            height: 8px; 
+            background: #94a3b8; 
+            border-radius: 2px; 
+            position: relative; 
+            display: inline-block; 
+            margin-left: 4px; 
+        }
+        .outlet-switch-icon::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: -1px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 8px; 
+            height: 4px; 
+            background: #ef4444; 
+            border-radius: 1px; 
+        }
+
+        .cats-section { 
+            background: #002b5c; 
+            color: white; 
+            border-radius: 20px; 
+            padding: 1.5rem; 
+            position: relative; 
+            overflow: hidden; 
+            border: 3px solid #fff; 
+            box-shadow: 0 10px 30px rgba(0,43,92,0.2); 
+        }
+        
+        @media (min-width: 768px) {
+            .cats-section { padding: 2rem; border-radius: 24px; border-width: 4px; }
+        }
+
+        .hoops-pattern { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 10px; 
+            background: repeating-linear-gradient(90deg, #fff, #fff 40px, transparent 40px, transparent 80px); 
+        }
+        
+        .goalpost-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1.5fr 1fr; 
+            gap: 4px; 
+            margin: 1rem auto; 
+            align-items: end; 
+            max-width: 240px; 
+        }
+        .post { background: rgba(255,255,255,0.3); border-radius: 2px 2px 0 0; }
+        .post-inner { height: 50px; }
+        .post-outer { height: 30px; }
+        .score-val { font-size: 1.5rem; font-weight: 900; line-height: 1; display: block; }
+        .score-label { font-size: 8px; font-weight: 800; text-transform: uppercase; opacity: 0.7; }
+        
+        .rule-card { 
+            background: white; 
+            color: #002b5c; 
+            border-radius: 10px; 
+            padding: 0.75rem; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+        }
+
+        .tip-badge { 
+            background: #f1f5f9; 
+            color: #475569; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            font-size: 10px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            margin-bottom: 4px; 
+            display: inline-block; 
+        }
+        
+        .warning-box { 
+            background: #fff7ed; 
+            border: 1px solid #fed7aa; 
+            border-radius: 12px; 
+            padding: 1.25rem; 
+        }
     </style>
 </head>
-<body class="antialiased">
+<body class="py-6 px-4 md:px-0">
+    <div class="max-w-2xl mx-auto">
+        
+        <!-- Header -->
+        <header class="text-center mb-8 md:mb-12">
+            <h1 class="text-3xl md:text-5xl text-slate-900 leading-tight">Geelong & The Surf Coast 2026</h1>
+            <p class="text-base md:text-lg text-slate-500 mt-2 md:mt-4 italic font-light">March 27 — April 3</p>
+        </header>
 
-    <!-- Sticky Wiki Header -->
-    <header class="wiki-header">
-        <div class="flex justify-between items-center mb-3">
-            <span class="font-black tracking-tighter text-lg uppercase text-white">Victoria 2026</span>
-            <span class="text-[10px] font-bold opacity-70">MAR 20 — APR 03</span>
-        </div>
-        <!-- Comprehensive Nav matching all 8 section heads exactly -->
-        <nav class="flex overflow-x-auto pb-2 no-tap-highlight scrollbar-hide">
-            <a href="#logistics" class="jump-link">1. Flights</a>
-            <a href="#eta" class="jump-link">2. Visa</a>
-            <a href="#house" class="jump-link">3. Staying</a>
-            <a href="#weather" class="jump-link">4. Packing</a>
-            <a href="#tech" class="jump-link">5. Chargers</a>
-            <a href="#driving" class="jump-link">6. Driving</a>
-            <a href="#culture" class="jump-link">7. Food</a>
-            <a href="#cats" class="jump-link">8. Footy</a>
-        </nav>
-    </header>
-
-    <main class="p-3">
-
-        <!-- Title Section -->
-        <section class="mb-6 px-1 pt-2">
-            <h1 class="text-3xl text-slate-900 font-bold leading-none">Australia Family Trip</h1>
-            <p class="text-slate-500 text-sm mt-2 italic">Essential info for Geelong & the Surf Coast</p>
-        </section>
-
-        <!-- 1. Logistics -->
-        <article id="logistics" class="wiki-card rounded-lg overflow-hidden scroll-mt-32">
-            <div class="bg-slate-100 px-4 py-2 border-b border-slate-200 flex justify-between items-center">
-                <h2 class="font-bold text-sm uppercase tracking-tight text-slate-700">1.0 Flights & Transport</h2>
-                <span class="status-pill bg-emerald-100 text-emerald-700">Confirmed</span>
-            </div>
+        <!-- 1. Travel Logistics -->
+        <div class="section-card border-t-4 border-slate-900">
+            <h2 class="text-xl md:text-2xl mb-4 text-slate-800 border-b pb-2">Travel Logistics</h2>
             
-            <div class="p-4">
-                <div class="sidebar-data mb-4">
-                    <p class="font-bold text-xs uppercase text-slate-400 mb-1">Inbound Flight (DL738/11)</p>
-                    <div class="grid grid-cols-2 gap-4">
+            <div class="mb-6">
+                <div class="flex justify-between items-end mb-2">
+                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Inbound: DL738 / DL11</h3>
+                    <span class="text-[9px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Confirmed</span>
+                </div>
+                
+                <div class="arrival-container shadow-sm border border-emerald-100">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                         <div>
-                            <p class="text-[10px] font-bold text-blue-600">JFK DEPART</p>
-                            <p class="text-sm font-bold">Mar 20 @ 3:40 PM</p>
+                            <span class="info-label text-emerald-600/70">JFK Departure</span>
+                            <p class="text-base md:text-lg font-bold text-slate-900 leading-tight">Fri, Mar 20 @ 3:40 PM</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-0.5">Check-in: 12:40 PM</p>
                         </div>
-                        <div>
-                            <p class="text-[10px] font-bold text-blue-600">MEL ARRIVE</p>
-                            <p class="text-sm font-bold">Mar 22 @ 8:15 AM</p>
+                        <div class="md:border-l md:border-emerald-200/50 md:pl-4">
+                            <span class="info-label text-emerald-600/70">Melbourne Arrival</span>
+                            <p class="text-base md:text-lg font-bold text-slate-900 leading-tight">Sun, Mar 22 @ 8:15 AM</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-0.5">T2 International</p>
+                        </div>
+                        <div class="md:border-l md:border-emerald-200/50 md:pl-4 space-y-2">
+                            <div class="car-container py-2 px-3 flex justify-between items-center">
+                                <span class="text-[9px] font-bold text-blue-600 uppercase">Car 1</span>
+                                <span class="text-xs font-bold text-slate-700">Blair & Chris</span>
+                            </div>
+                            <div class="car-container py-2 px-3 flex justify-between items-center">
+                                <span class="text-[9px] font-bold text-blue-600 uppercase">Car 2</span>
+                                <span class="text-xs font-bold text-slate-700">David & Scott</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="grid grid-cols-2 gap-2 mb-6">
-                    <div class="border rounded p-2 text-center bg-slate-50">
-                        <p class="text-[9px] font-bold text-slate-400">CAR 1</p>
-                        <p class="text-xs font-semibold">Blair & Chris</p>
-                    </div>
-                    <div class="border rounded p-2 text-center bg-slate-50">
-                        <p class="text-[9px] font-bold text-slate-400">CAR 2</p>
-                        <p class="text-xs font-semibold">David & Scott</p>
-                    </div>
-                </div>
-
-                <h3 class="font-bold text-xs uppercase text-slate-400 mb-3 border-b pb-1 text-center">Return Schedule (DL12)</h3>
-                <div class="space-y-3">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-xs font-bold">Chris & Rene</p>
-                            <p class="text-[10px] text-slate-500">Sun, Mar 29 (Return Car 1)</p>
-                        </div>
-                        <p class="font-black text-sm text-slate-800 underline decoration-blue-500">11:00 AM</p>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-xs font-bold">David & Blair</p>
-                            <p class="text-[10px] text-slate-500">Wed, Apr 1</p>
-                        </div>
-                        <p class="font-black text-sm text-slate-800 underline decoration-blue-500">11:00 AM</p>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-xs font-bold">Family Group</p>
-                            <p class="text-[10px] text-slate-500">Fri, Apr 3 (Return Car 2)</p>
-                        </div>
-                        <p class="font-black text-sm text-slate-800 underline decoration-blue-500">11:00 AM</p>
-                    </div>
-                </div>
-                <p class="text-[10px] text-slate-400 mt-4 text-center italic">Refuel hire vehicles prior to airport return.</p>
             </div>
-        </article>
 
-        <!-- 2. ETA -->
-        <article id="eta" class="wiki-card rounded-lg overflow-hidden border-red-200 scroll-mt-32">
-            <div class="bg-red-600 text-white px-4 py-2 flex justify-between items-center">
-                <h2 class="font-bold text-sm uppercase">2.0 Getting your Visa</h2>
-                <span class="animate-pulse h-2 w-2 bg-white rounded-full"></span>
+            <div class="space-y-2">
+                <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Outbound Departures (DL12)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <div class="group-container border-t-2 border-t-slate-400 mb-0">
+                        <span class="info-label">Sun, Mar 29</span>
+                        <h4 class="font-bold text-slate-900 text-sm md:text-base">Chris & Rene</h4>
+                        <div class="mt-2 pt-2 border-t border-slate-200 flex justify-between items-center">
+                            <span class="text-[8px] text-blue-600 font-bold uppercase tracking-tighter">Return Car 1</span>
+                            <span class="text-xs md:text-sm font-black text-slate-800">11:00 AM</span>
+                        </div>
+                    </div>
+                    <div class="group-container border-t-2 border-t-slate-400 mb-0">
+                        <span class="info-label">Wed, Apr 1</span>
+                        <h4 class="font-bold text-slate-900 text-sm md:text-base">David & Blair</h4>
+                        <div class="mt-2 pt-2 border-t border-slate-200 flex justify-end">
+                            <span class="text-xs md:text-sm font-black text-slate-800">11:00 AM</span>
+                        </div>
+                    </div>
+                    <div class="group-container border-t-2 border-t-slate-400 mb-0">
+                        <span class="info-label">Fri, Apr 3</span>
+                        <h4 class="font-bold text-slate-900 text-sm md:text-base">Family Group</h4>
+                        <div class="mt-2 pt-2 border-t border-slate-200 flex justify-between items-center">
+                            <span class="text-[8px] text-blue-600 font-bold uppercase tracking-tighter">Return Car 2</span>
+                            <span class="text-xs md:text-sm font-black text-slate-800">11:00 AM</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="p-4 bg-red-50">
-                <div class="bg-white p-3 rounded border border-red-200 mb-4">
-                    <p class="text-red-600 font-black text-xs mb-1 uppercase tracking-tighter">MANDATORY DEADLINE</p>
-                    <p class="text-xs font-bold text-slate-800 leading-tight">Complete Before JFK Arrival</p>
-                    <p class="text-[11px] text-slate-600 mt-1">Airlines cannot board you without an electronically linked visa. <strong>Approve your ETA at least 72 hours before travel.</strong></p>
-                </div>
+            <p class="text-[9px] text-slate-400 mt-4 text-center italic">Refuel hire vehicles prior to airport return.</p>
+        </div>
 
-                <div class="bg-white p-3 rounded border border-slate-200 mb-4">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">Stay Details for Form</p>
-                    <p class="text-[11px] font-medium text-slate-700"><strong>Contact:</strong> Soulful Living Real Estate (+61 423 650 227)</p>
-                    <p class="text-[11px] font-medium text-slate-700"><strong>Address:</strong> 80 Kurzmans Rd, Bellbrae VIC 3228</p>
+        <!-- 2. ETA Process -->
+        <div class="section-card bg-slate-900 text-white">
+            <h2 class="text-xl md:text-2xl mb-4 font-semibold text-white border-b border-slate-700 pb-2">Detailed ETA Process (Subclass 601)</h2>
+            
+            <div class="eta-deadline-alert">
+                <div class="flex items-start gap-3">
+                    <div class="bg-red-600 text-white px-1.5 py-0.5 rounded font-black text-[10px] mt-0.5">MANDATORY</div>
+                    <div>
+                        <p class="text-red-900 font-bold text-sm md:text-base leading-tight">Complete Before JFK Arrival</p>
+                        <p class="text-red-800 text-[11px] md:text-sm mt-1 leading-snug">
+                            Airlines cannot board you without an electronically linked visa. <strong>Approve your ETA at least 72 hours before travel.</strong>
+                        </p>
+                    </div>
                 </div>
+            </div>
 
+            <div class="space-y-4 text-xs md:text-sm text-slate-300">
+                <div class="p-3 md:p-4 bg-slate-800 rounded-lg border border-slate-700">
+                    <span class="info-label text-blue-400 uppercase">Stay Details (Required for Form)</span>
+                    <div class="mt-1 space-y-1">
+                        <p><span class="text-white font-semibold">Contact:</span> Soulful Living Real Estate (+61 423 650 227)</p>
+                        <p><span class="text-white font-semibold">Address:</span> 80 Kurzmans Rd, Bellbrae VIC 3228</p>
+                    </div>
+                </div>
+                
                 <div class="space-y-4">
                     <div class="flex gap-3">
-                        <div class="bg-blue-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shrink-0">1</div>
-                        <div class="text-[11px]"><strong class="text-slate-800">Download the "Australian ETA" App</strong><br>Must be done via mobile app (iOS/Android) for passport chip reading.</div>
+                        <div class="step-pill">1</div>
+                        <div>
+                            <p class="font-bold text-white leading-tight">Download the "Australian ETA" App</p>
+                            <p class="mt-0.5">Must be done via mobile app (iOS/Android) for passport chip reading.</p>
+                        </div>
                     </div>
                     <div class="flex gap-3">
-                        <div class="bg-blue-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shrink-0">2</div>
-                        <div class="text-[11px]"><strong class="text-slate-800">Scan Passport & Read NFC Chip</strong><br>Scan photo page, then hold phone against the passport cover to read the chip.</div>
+                        <div class="step-pill">2</div>
+                        <div>
+                            <p class="font-bold text-white leading-tight">Scan Passport & Read NFC Chip</p>
+                            <p class="mt-0.5">Scan photo page, then hold phone against the passport cover to read the embedded chip.</p>
+                        </div>
                     </div>
                     <div class="flex gap-3">
-                        <div class="bg-blue-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shrink-0">3</div>
-                        <div class="text-[11px]"><strong class="text-slate-800">Biometric Selfie & Payment</strong><br>Take a live photo and pay the $20 AUD fee.</div>
+                        <div class="step-pill">3</div>
+                        <div>
+                            <p class="font-bold text-white leading-tight">Biometric Selfie & Payment</p>
+                            <p class="mt-0.5">Take a live photo and pay the $20 AUD fee. Approval is usually instant but can take up to 24 hours.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </article>
+        </div>
 
-        <!-- 3. The House -->
-        <article id="house" class="wiki-card rounded-lg overflow-hidden scroll-mt-32">
-            <div class="bg-slate-800 text-white px-4 py-2">
-                <h2 class="font-bold text-sm uppercase">3.0 Where we're staying</h2>
-            </div>
-            <div class="p-4">
-                <div class="sidebar-data mb-4">
-                    <p class="text-[10px] font-bold text-slate-400 mb-1 uppercase">Property Address</p>
-                    <p class="text-sm font-bold text-slate-800 leading-tight">80 Kurzmans Rd, Bellbrae VIC 3228</p>
-                    <div class="flex gap-2 mt-2">
-                        <span class="text-[8px] font-black bg-slate-200 px-1.5 py-0.5 rounded uppercase">Estate Grounds</span>
-                        <span class="text-[8px] font-black bg-slate-200 px-1.5 py-0.5 rounded uppercase">Sleeps 12</span>
+        <!-- 3. Home Base -->
+        <div class="section-card border-t-4 border-slate-800">
+            <h2 class="text-xl md:text-2xl text-slate-800 border-b pb-2 mb-4">Home Base: "The Gully"</h2>
+            
+            <div class="space-y-4">
+                <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                    <div class="flex-1">
+                        <span class="info-label">Address</span>
+                        <p class="text-lg md:text-xl text-slate-800 font-medium leading-tight">80 Kurzmans Rd, Bellbrae VIC 3228</p>
+                        <div class="mt-2 flex flex-wrap gap-1">
+                            <span class="feature-tag">10-Acre Bushland</span>
+                            <span class="feature-tag">5 Bed / 3 Bath</span>
+                            <span class="feature-tag">Sleeps 12</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div class="text-center">
-                        <p class="text-[10px] text-slate-400 font-bold uppercase">Check-in</p>
-                        <p class="text-lg font-black text-slate-800">2:00 PM</p>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-[10px] text-slate-400 font-bold uppercase">Check-out</p>
-                        <p class="text-lg font-black text-slate-800">10:30 AM</p>
-                    </div>
-                </div>
-
-                <div class="bg-emerald-50 p-3 border border-emerald-100 rounded-lg">
-                    <p class="text-[10px] font-black text-emerald-600 uppercase mb-1">Wildlife Advisory</p>
-                    <p class="text-xs text-emerald-800 leading-snug italic">Watch for kangaroos and wallabies grazing on the grounds at dawn and dusk through the living room windows.</p>
-                </div>
-                
-                <div class="mt-4 pt-4 border-t">
-                    <p class="text-[10px] font-bold text-slate-400 uppercase mb-1">The Layout</p>
-                    <p class="text-xs text-slate-600">Renovated estate with a 3-bedroom upper level and a self-contained 2-bedroom studio below, linked by internal stairs.</p>
-                </div>
-            </div>
-        </article>
-
-        <!-- 4. Weather -->
-        <article id="weather" class="wiki-card rounded-lg overflow-hidden scroll-mt-32">
-            <div class="bg-amber-400 text-amber-950 px-4 py-2 font-bold text-sm uppercase">4.0 Packing & Weather</div>
-            <div class="p-4">
-                <p class="wiki-heading text-lg font-bold mb-2">"Four Seasons in One Day"</p>
-                <p class="text-xs text-slate-600 mb-4 leading-relaxed italic text-balance">Victoria’s climate is volatile. Expect 15-degree drops in under an hour. Be prepared for sun, rain, and a sharp "Cool Change" in a single afternoon.</p>
-                
-                <div class="bg-slate-50 p-3 rounded border border-slate-200 text-xs mb-3">
-                    <div class="flex justify-between py-1 border-b"><span>Peak High</span><span class="font-bold">22°C (72°F)</span></div>
-                    <div class="flex justify-between py-1 border-b text-blue-600 font-bold"><span>Cool Change</span><span>14°C (57°F)</span></div>
-                    <div class="flex justify-between py-1 font-bold text-blue-900"><span>Coastal Evening</span><span>8°C (46°F)</span></div>
-                </div>
-
-                <div class="space-y-2">
-                    <p class="text-xs leading-tight"><strong>Packing:</strong> Bring a light, windproof jacket even on clear days.</p>
-                    <p class="text-xs leading-tight"><strong>UV Warning:</strong> The Australian sun is intense. High-SPF sunscreen is non-negotiable.</p>
-                </div>
-            </div>
-        </article>
-
-        <!-- 5. Tech -->
-        <article id="tech" class="wiki-card rounded-lg overflow-hidden border-indigo-200 scroll-mt-32">
-            <div class="bg-indigo-600 text-white px-4 py-2 font-bold text-sm uppercase">5.0 Will my chargers work?</div>
-            <div class="p-4">
-                <p class="text-[10px] font-bold text-slate-400 uppercase mb-3">Plug Label Checklist</p>
-                
-                <div class="flex items-center gap-3 bg-emerald-50 p-3 rounded-lg border border-emerald-100 mb-2">
-                    <span class="text-emerald-600 text-xl font-black">✓</span>
-                    <p class="text-[11px] text-emerald-900 font-medium leading-tight"><strong>SAFE:</strong> If the label says <strong>"100-240V"</strong>, just use a plug adapter.</p>
-                </div>
-
-                <div class="flex items-center gap-3 bg-red-50 p-3 rounded-lg border border-red-100 mb-4">
-                    <span class="text-red-600 text-xl font-black">✕</span>
-                    <p class="text-[11px] text-red-900 font-medium leading-tight"><strong>DANGER:</strong> If the label says <strong>"110V ONLY"</strong>, it will fry. Do not bring.</p>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="border rounded p-3 bg-slate-50">
-                        <p class="text-[9px] font-bold text-indigo-600 uppercase mb-1">Type I Adapter</p>
-                        <p class="text-[10px] leading-tight">3-pin slanted required.</p>
-                    </div>
-                    <div class="border rounded p-3 bg-slate-900 text-white">
-                        <p class="text-[9px] font-bold text-indigo-400 uppercase mb-1">The Wall Switch</p>
-                        <p class="text-[10px] leading-tight">Click switch <strong>DOWN</strong> (red showing) to turn power on.</p>
-                    </div>
-                </div>
-            </div>
-        </article>
-
-        <!-- 6. Driving -->
-        <article id="driving" class="wiki-card rounded-lg overflow-hidden border-red-200 scroll-mt-32">
-            <div class="bg-red-600 text-white px-4 py-2 font-bold text-sm uppercase">6.0 Road Rules & Safety</div>
-            <div class="p-4">
-                <div class="bg-red-50 p-3 rounded-lg border border-red-200 mb-4">
-                    <p class="text-[10px] font-black text-red-700 uppercase mb-1">Speed Cameras</p>
-                    <p class="text-xs text-red-900 font-medium leading-snug italic">Victoria has zero-tolerance enforcement. Stick strictly to signed limits.</p>
-                </div>
-
-                <div class="grid grid-cols-1 gap-4 text-xs text-slate-700">
                     <div class="flex gap-2">
-                        <span class="text-red-600 font-black">!</span>
-                        <p><strong>Look Right First:</strong> Traffic approaches from your right at every intersection.</p>
-                    </div>
-                    <div class="flex gap-2 border-t pt-2">
-                        <span class="text-red-600 font-black">!</span>
-                        <p><strong>Roundabouts:</strong> Travel clockwise. Give way to vehicles already in the circle.</p>
-                    </div>
-                    <div class="flex gap-2 border-t pt-2">
-                        <span class="text-red-600 font-black">!</span>
-                        <p><strong>No Left on Red:</strong> Illegal unless a sign specifically allows it.</p>
-                    </div>
-                    <div class="flex gap-2 border-t pt-2">
-                        <span class="text-red-600 font-black">!</span>
-                        <p><strong>Wildlife:</strong> Kangaroos are a major risk at dusk. Stop if one is in your path.</p>
+                        <div class="bg-slate-900 text-white p-2 rounded-lg text-center flex-1 md:flex-none md:min-w-[100px]">
+                            <span class="info-label text-slate-400 text-[8px]">Check-in</span>
+                            <p class="text-base md:text-lg font-bold">2:00 PM</p>
+                        </div>
+                        <div class="bg-slate-100 p-2 rounded-lg text-center flex-1 md:flex-none md:min-w-[100px] border border-slate-200">
+                            <span class="info-label text-[8px]">Check-out</span>
+                            <p class="text-base md:text-lg font-bold text-slate-800">10:30 AM</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </article>
 
-        <!-- 7. Culture -->
-        <article id="culture" class="wiki-card rounded-lg overflow-hidden scroll-mt-32">
-            <div class="bg-orange-500 text-white px-4 py-2 font-bold text-sm uppercase">7.0 Food & Local Slang</div>
-            <div class="p-4 space-y-4">
-                <div class="flex gap-3 items-start">
-                    <span class="bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded text-[8px] font-black uppercase mt-0.5 shrink-0">Parmi</span>
-                    <p class="text-xs">Chicken Parmigiana served with chips and salad. Just call it a "Parmi."</p>
-                </div>
-                <div class="flex gap-3 items-start border-t pt-2">
-                    <span class="bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded text-[8px] font-black uppercase mt-0.5 shrink-0">Beer</span>
-                    <p class="text-xs"><strong>Pot:</strong> 10oz | <strong>Schooner:</strong> 15oz | <strong>Pint:</strong> 20oz.</p>
-                </div>
-                <div class="flex gap-3 items-start border-t pt-2">
-                    <span class="bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded text-[8px] font-black uppercase mt-0.5 shrink-0">Coffee</span>
-                    <p class="text-xs">Order a <strong>Flat White</strong> (latte style) or <strong>Long Black</strong> (Americano).</p>
-                </div>
-                <div class="flex gap-3 items-start border-t pt-2">
-                    <span class="bg-orange-100 text-orange-700 px-1.5 py-0.5 rounded text-[8px] font-black uppercase mt-0.5 shrink-0">Tips</span>
-                    <p class="text-xs"><strong>Not expected.</strong> Tax is included in menu prices. What you see is what you pay.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                    <div class="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                        <h3 class="text-[10px] font-bold text-slate-500 uppercase mb-1">The Layout</h3>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">Renovated estate with a 3-bedroom upper level and a self-contained 2-bedroom studio below, linked by internal stairs.</p>
+                    </div>
+                    <div class="bg-emerald-50/50 p-3 rounded-xl border border-emerald-100">
+                        <h3 class="text-[10px] font-bold text-emerald-900 uppercase mb-1">Wildlife</h3>
+                        <p class="text-[11px] text-emerald-800 leading-relaxed">Watch for kangaroos and wallabies grazing in the gully at dawn and dusk through the living room's floor-to-ceiling windows.</p>
+                    </div>
                 </div>
             </div>
-        </article>
+        </div>
+
+        <!-- 4. Weather Warning -->
+        <div class="section-card border-l-4 border-amber-400">
+            <h2 class="text-xl md:text-2xl mb-4 text-slate-800">Weather: "Four Seasons in One Day"</h2>
+            <div class="warning-box mb-4">
+                <p class="text-[11px] md:text-sm text-amber-800 leading-relaxed italic">Victoria’s climate is volatile. Expect 15-degree drops in under an hour as Southern Ocean winds sweep in. Be prepared for sun, rain, and a sharp "Cool Change" in a single afternoon.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="text-[11px] md:text-sm text-slate-600 space-y-2">
+                    <p><strong>Packing:</strong> Bring a light, windproof jacket even on clear days.</p>
+                    <p><strong>UV Warning:</strong> The Australian sun is intense. High-SPF sunscreen and hats are non-negotiable.</p>
+                </div>
+                <div class="bg-slate-50 p-3 rounded-lg text-[10px] md:text-xs space-y-1">
+                    <div class="flex justify-between border-b pb-1"><span>Afternoon Peak</span><span class="font-bold">22°C (72°F)</span></div>
+                    <div class="flex justify-between border-b pb-1 text-blue-600"><span>Post-Change Shift</span><span class="font-bold">14°C (57°F)</span></div>
+                    <div class="flex justify-between text-blue-800"><span>Coastal Evening</span><span class="font-bold">8°C (46°F)</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Tech & Power -->
+        <div class="section-card border-t-4 border-indigo-600">
+            <h2 class="text-xl md:text-2xl text-slate-800 border-b pb-2 mb-4">Tech & Power Checklist</h2>
+            
+            <div class="space-y-3">
+                <p class="text-[11px] md:text-sm font-bold text-slate-700">Check the physical label on every device plug:</p>
+                
+                <div class="voltage-status status-pass">
+                    <div class="font-bold text-lg">✓</div>
+                    <p class="text-[11px] md:text-xs"><strong>SAFE:</strong> If the label says <strong>"100-240V"</strong>, just use a plug adapter.</p>
+                </div>
+
+                <div class="voltage-status status-fail">
+                    <div class="font-bold text-lg">✕</div>
+                    <p class="text-[11px] md:text-xs"><strong>DANGER:</strong> If the label says <strong>"110V ONLY"</strong>, it will fry. Do not bring.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+                    <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="info-label">Physical Adapter</span>
+                        <p class="text-[11px] text-slate-600 leading-tight">You need a <strong>Type I</strong> (3-pin slanted) adapter. <a href="https://www.amazon.com/Best-Australia-Power-Adapter-Type/s?k=best+australia+power+adapter+type+i" target="_blank" class="text-indigo-600 underline">Buy on Amazon →</a></p>
+                    </div>
+                    <div class="p-3 bg-slate-900 text-white rounded-lg">
+                        <span class="info-label text-indigo-400">The Wall Switch</span>
+                        <p class="text-[11px] text-slate-300 leading-tight">Click the switch <strong>DOWN</strong> (red showing) or the outlet is dead. <span class="outlet-switch-icon"></span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. Driving in Australia -->
+        <div class="section-card border-t-4 border-red-600">
+            <h2 class="text-xl md:text-2xl text-slate-800 border-b pb-2">Driving Tips</h2>
+            <div class="warning-box my-4">
+                <p class="text-red-900 font-bold mb-1 text-[11px] uppercase">Speed Cameras</p>
+                <p class="text-[11px] text-red-800 leading-relaxed">Victoria has zero-tolerance enforcement. Cameras trigger even 3km/h over. Stick strictly to signed limits.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] text-slate-600 leading-snug">
+                <div class="space-y-3">
+                    <p><strong>Look Right First:</strong> When entering roads, traffic approaches from your right. Mirror your instincts.</p>
+                    <p><strong>Roundabouts:</strong> Travel clockwise. Give way to vehicles already in the circle (approaching from your right).</p>
+                </div>
+                <div class="space-y-3">
+                    <p><strong>No Left on Red:</strong> Illegal unless a sign specifically allows it. Always wait for the green light.</p>
+                    <p><strong>Wildlife:</strong> Kangaroos are a major risk at dusk. If you see one, assume others are nearby.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. Culture & Dining -->
+        <div class="section-card border-t-4 border-orange-500">
+            <h2 class="text-xl md:text-2xl text-slate-800 border-b pb-2">Aussie Culture & Dining</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                    <span class="tip-badge">The "Parmi"</span>
+                    <p class="text-xs text-slate-600">Standard pub meal (Chicken Parmigiana) served with chips and salad. Must be called a "Parmi."</p>
+                </div>
+                <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                    <span class="tip-badge">Beer Sizes</span>
+                    <p class="text-xs text-slate-600"><strong>Pot:</strong> 10oz | <strong>Schooner:</strong> 15oz | <strong>Pint:</strong> 20oz. Victoria favors Pots and Pints.</p>
+                </div>
+                <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                    <span class="tip-badge">Coffee</span>
+                    <p class="text-xs text-slate-600">Order a <strong>Flat White</strong> (velvety milk) or <strong>Long Black</strong> (Americano style). No "regular" drip coffee.</p>
+                </div>
+                <div>
+                    <span class="tip-badge">Tipping</span>
+                    <p class="text-xs text-slate-600"><strong>Not expected.</strong> Tax (GST) is included in menu prices. The price you see is what you pay.</p>
+                </div>
+            </div>
+        </div>
 
         <!-- 8. Geelong Cats -->
-        <article id="cats" class="cats-brand mb-10 shadow-lg scroll-mt-32">
-            <div class="p-5">
-                <div class="text-center mb-6">
-                    <h2 class="text-2xl font-black italic uppercase leading-none tracking-tighter text-white">Geelong Cats</h2>
-                    <p class="text-[9px] uppercase font-bold text-blue-200 mt-2 tracking-[0.25em]">AFL Footy for Beginners</p>
-                </div>
+        <div class="cats-section mb-10">
+            <div class="hoops-pattern"></div>
+            
+            <div class="text-center mb-4 mt-2">
+                <h2 class="text-2xl font-black italic uppercase leading-none tracking-tighter text-white">Geelong Cats</h2>
+                <p class="text-[8px] uppercase font-bold text-blue-200 mt-1 tracking-[0.2em]">AFL Essentials</p>
+            </div>
 
-                <div class="bg-white/10 rounded-lg p-4 border border-white/10 mb-4">
-                    <div class="goalpost-row">
-                        <div class="text-center">
-                            <span class="text-lg font-black block">1</span>
-                            <span class="text-[7px] uppercase font-bold opacity-70">BEHIND</span>
-                            <div class="post side mt-1"></div>
-                        </div>
-                        <div class="text-center">
-                            <span class="text-2xl font-black text-yellow-400 block">6</span>
-                            <span class="text-[7px] uppercase font-bold text-yellow-400">GOAL</span>
-                            <div class="post main mt-1 mx-auto"></div>
-                        </div>
-                        <div class="text-center">
-                            <span class="text-lg font-black block">1</span>
-                            <span class="text-[7px] uppercase font-bold opacity-70">BEHIND</span>
-                            <div class="post side mt-1"></div>
-                        </div>
+            <div class="bg-white/5 rounded-xl p-3 border border-white/10 mb-4">
+                <div class="goalpost-grid">
+                    <div class="text-center">
+                        <span class="score-val">1</span>
+                        <span class="score-label">Behind</span>
+                        <div class="post post-outer w-full mt-1"></div>
                     </div>
-                    <p class="text-[8px] text-center opacity-70 italic mt-2">Scoreboards show: <strong>Goals . Behind . Total</strong></p>
-                </div>
-
-                <div class="bg-white text-slate-900 rounded-lg p-4 space-y-4 shadow-inner">
-                    <p class="text-[10px] font-black text-blue-800 uppercase border-b pb-1">Essential Terms</p>
-                    <div class="space-y-3">
-                        <p class="text-[11px] leading-tight"><strong class="text-blue-700">The Mark:</strong> Catch the ball from a kick to get a free, unhindered kick.</p>
-                        <p class="text-[11px] leading-tight"><strong class="text-blue-700">Handball:</strong> Must be punched off the palm. No throwing allowed.</p>
-                        <p class="text-[11px] leading-tight"><strong class="text-blue-700">50m Penalty:</strong> If a player slows the game down, the ball moves 50m forward.</p>
+                    <div class="text-center">
+                        <span class="score-val text-yellow-400">6</span>
+                        <span class="score-label text-yellow-400">Goal</span>
+                        <div class="post post-inner w-full mt-1 bg-white/40"></div>
+                    </div>
+                    <div class="text-center">
+                        <span class="score-val">1</span>
+                        <span class="score-label">Behind</span>
+                        <div class="post post-outer w-full mt-1"></div>
                     </div>
                 </div>
+                <p class="text-[8px] text-center opacity-70 italic mt-2">Scoreboards show: <strong>Goals . Behind . Total</strong> (e.g. 10.8.68)</p>
+            </div>
 
-                <div class="grid grid-cols-2 gap-3 mt-4">
-                    <div class="bg-white/10 p-3 rounded-lg border border-white/10">
-                        <p class="text-[8px] font-bold text-blue-200 uppercase mb-1">Fan Lingo</p>
-                        <p class="text-[10px] text-white leading-tight">Missed a tackle? The crowd yells <strong>"BAAALLL!"</strong></p>
+            <div class="space-y-3">
+                <div class="rule-card">
+                    <span class="info-label text-blue-900/40 mb-1">Key Game Terms</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 text-[10px] font-semibold text-blue-950">
+                        <p><span class="text-blue-600">●</span> <strong>The Mark:</strong> Catch the ball from a kick (>15m) and get a free, unhindered kick.</p>
+                        <p><span class="text-blue-600">●</span> <strong>Handball:</strong> No throwing! Ball must be punched off the palm of the other hand.</p>
+                        <p><span class="text-blue-600">●</span> <strong>Holding the Ball:</strong> Tackled? You must release the ball immediately. Don't "prioritize" it.</p>
+                        <p><span class="text-blue-600">●</span> <strong>50m Penalty:</strong> If a player slows down a free kick, the umpire moves the ball 50m forward.</p>
                     </div>
-                    <div class="bg-white/10 p-3 rounded-lg border border-white/10">
-                        <p class="text-[8px] font-bold text-blue-200 uppercase mb-1">NY Connection</p>
-                        <p class="text-[10px] text-white leading-tight">Geelong local <strong>Graeme Lloyd</strong> won 2 World Series with the <strong>Yankees</strong>!</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div class="rule-card bg-blue-50">
+                        <span class="info-label text-blue-900/40 mb-1">Fan Lingo</span>
+                        <p class="text-[10px] text-blue-900 leading-tight">
+                            When an umpire misses a tackle call, the crowd yells <strong>"BAAALLL!"</strong> at the top of their lungs.
+                        </p>
+                    </div>
+                    <div class="rule-card bg-blue-50">
+                        <span class="info-label text-blue-900/40 mb-1">NY Connection</span>
+                        <p class="text-[10px] text-blue-900 leading-tight">
+                            Geelong icon <strong>Graeme Lloyd</strong> won 2 World Series with the <strong>NY Yankees</strong> ('96 & '98)!
+                        </p>
                     </div>
                 </div>
             </div>
-        </article>
+        </div>
 
-        <footer class="text-center text-slate-400 text-[10px] pb-12 pt-6 border-t uppercase tracking-[0.3em]">
-            Geelong & Surf Coast — 2026
-        </footer>
-    </main>
-
+        <footer class="text-center text-slate-400 text-[10px] pb-10 uppercase tracking-widest">Geelong & The Surf Coast • 2026</footer>
+    </div>
 </body>
 </html>

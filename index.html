@@ -9,6 +9,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Aus Trip">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -283,34 +284,33 @@
             margin-top: 4px;
         }
 
-        /* iOS Install Popup Styles */
+        /* Updated iOS Install Popup Styles */
         #pwa-popup {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
             z-index: 1000;
-            padding: 20px;
+            padding: 16px;
             transform: translateY(100%);
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: linear-gradient(to top, rgba(0,0,0,0.3), transparent);
+            pointer-events: none;
         }
         #pwa-popup.show {
             transform: translateY(0);
+            pointer-events: auto;
         }
         .popup-content {
-            background: white;
-            border-radius: 24px 24px 16px 16px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 24px;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
-            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            max-width: 400px;
             margin: 0 auto;
-        }
-        .ios-icon {
-            width: 24px;
-            height: 24px;
-            display: inline-block;
-            vertical-align: middle;
-            margin: 0 4px;
+            border: 1px solid rgba(255,255,255,0.4);
         }
     </style>
 </head>
@@ -318,31 +318,45 @@
     <!-- iOS Install Prompt -->
     <div id="pwa-popup">
         <div class="popup-content">
-            <div class="flex justify-between items-start mb-4">
-                <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">AUS</div>
+            <div class="flex justify-between items-start mb-5">
+                <div class="flex items-center gap-4">
+                    <!-- Your custom logo from GitHub -->
+                    <img src="apple-touch-icon.png" alt="App Icon" class="w-14 h-14 rounded-xl shadow-md border border-slate-100" onerror="this.src='https://ui-avatars.com/api/?name=AUS&background=0f172a&color=fff&size=128'">
                     <div>
-                        <h3 class="font-bold text-slate-900 leading-none">Trip Guide App</h3>
-                        <p class="text-xs text-slate-500 mt-1">Add to home screen for offline use</p>
+                        <h3 class="font-bold text-slate-900 text-lg leading-tight">Install Trip Guide</h3>
+                        <p class="text-xs text-slate-500 mt-1">Get easy offline access on your iPhone</p>
                     </div>
                 </div>
-                <button onclick="hidePopup()" class="text-slate-300 hover:text-slate-500">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                <button onclick="hidePopup()" class="p-1 -mt-2 -mr-2 text-slate-400 hover:text-slate-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
             
-            <div class="space-y-4 py-2 border-t border-slate-100 mt-4">
-                <div class="flex items-center gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-sm">1</div>
-                    <p class="text-sm text-slate-600">Tap the <strong>Share</strong> icon below <img src="https://img.icons8.com/ios/50/share-rounded.png" class="ios-icon" alt="share"></p>
+            <div class="space-y-4 py-2">
+                <div class="flex items-start gap-4">
+                    <div class="w-7 h-7 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xs shrink-0">1</div>
+                    <p class="text-sm text-slate-700 leading-snug">
+                        Tap the <strong>Menu</strong> button <span class="text-slate-900">(three dots <span class="font-black">...</span>)</span> or the <strong>Share</strong> icon in the Safari toolbar.
+                    </p>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-sm">2</div>
-                    <p class="text-sm text-slate-600">Scroll down and tap <strong>Add to Home Screen</strong> <img src="https://img.icons8.com/ios/50/plus-math.png" class="ios-icon" alt="plus"></p>
+                <div class="flex items-start gap-4">
+                    <div class="w-7 h-7 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xs shrink-0">2</div>
+                    <p class="text-sm text-slate-700 leading-snug">
+                        Select <strong>Share</strong> from the menu, then tap <strong>View More</strong> (if needed).
+                    </p>
+                </div>
+                <div class="flex items-start gap-4">
+                    <div class="w-7 h-7 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 font-bold text-xs shrink-0">3</div>
+                    <p class="text-sm text-slate-700 leading-snug">
+                        Scroll down and select <strong>"Add to Home Screen"</strong> 
+                        <span class="inline-block align-middle ml-1">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                        </span>
+                    </p>
                 </div>
             </div>
             
-            <button onclick="hidePopup()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl mt-4 active:bg-blue-700 transition-colors">
+            <button onclick="hidePopup()" class="w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl mt-6 active:opacity-80 transition-all text-sm shadow-lg">
                 Got it
             </button>
         </div>
@@ -809,7 +823,6 @@
         // Function to hide the popup
         function hidePopup() {
             popup.classList.remove('show');
-            // Save preference so it doesn't show again this session
             sessionStorage.setItem('pwa-prompt-dismissed', 'true');
         }
 
@@ -819,9 +832,8 @@
             const isStandalone = window.navigator.standalone === true;
             const isDismissed = sessionStorage.getItem('pwa-prompt-dismissed');
 
-            // Only show if on iOS, not already installed, and not dismissed this session
             if (isIOS && !isStandalone && !isDismissed) {
-                setTimeout(showPopup, 2000); // 2 second delay for better UX
+                setTimeout(showPopup, 2000);
             }
         });
     </script>

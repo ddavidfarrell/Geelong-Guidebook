@@ -8,6 +8,10 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600;700&display=swap');
         
+        html {
+            scroll-behavior: smooth;
+        }
+
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #fcfcfd; 
@@ -17,6 +21,25 @@
         
         h1, h2 { font-family: 'Playfair Display', serif; }
 
+        /* Navigation Styling */
+        .nav-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 0.75rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #475569;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+        .nav-link:active {
+            background: #f1f5f9;
+            transform: scale(0.95);
+        }
+
         /* Responsive Card Styling */
         .section-card { 
             background: white; 
@@ -25,10 +48,11 @@
             padding: 1.25rem; 
             margin-bottom: 1.5rem; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
+            scroll-margin-top: 1rem;
         }
         
         @media (min-width: 768px) {
-            .section-card { padding: 2rem; border-radius: 16px; margin-bottom: 2rem; }
+            .section-card { padding: 2rem; border-radius: 16px; margin-bottom: 2rem; scroll-margin-top: 2rem; }
         }
 
         .group-container { 
@@ -139,10 +163,11 @@
             overflow: hidden; 
             border: 3px solid #fff; 
             box-shadow: 0 10px 30px rgba(0,43,92,0.2); 
+            scroll-margin-top: 1rem;
         }
         
         @media (min-width: 768px) {
-            .cats-section { padding: 2rem; border-radius: 24px; border-width: 4px; }
+            .cats-section { padding: 2rem; border-radius: 24px; border-width: 4px; scroll-margin-top: 2rem; }
         }
 
         .hoops-pattern { 
@@ -203,13 +228,51 @@
             padding: 6px 12px;
             border-radius: 8px;
             font-size: 11px;
-            font-weight: 600;
-            gap: 8px;
-            margin-top: 8px;
-            transition: background 0.2s;
+            font-weight: 700;
+            gap: 6px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+            flex: 1;
+            justify-content: center;
+        }
+        @media (min-width: 768px) {
+            .download-pill { flex: none; font-size: 12px; padding: 8px 16px; }
         }
         .download-pill:hover {
             background: #0f172a;
+            transform: translateY(-1px);
+        }
+
+        #backToTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1e293b;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        #backToTop.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .uv-danger-bar {
+            background: linear-gradient(90deg, #fbbf24, #f87171, #ef4444);
+            height: 4px;
+            border-radius: 2px;
+            width: 100%;
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -217,14 +280,39 @@
     <div class="max-w-2xl mx-auto">
         
         <!-- Header -->
-        <header class="text-center mb-8 md:mb-12">
+        <header id="top" class="text-center mb-8 md:mb-10">
             <h1 class="text-3xl md:text-5xl text-slate-900 leading-tight">Geelong & The Surf Coast 2026</h1>
             <p class="text-base md:text-lg text-slate-500 mt-2 md:mt-4 italic font-light">March 20 — April 3</p>
+            
+            <!-- Mobile Section Links -->
+            <div class="mt-6 flex overflow-x-auto pb-2 gap-2 no-scrollbar px-2 -mx-2 md:mx-0 md:justify-center">
+                <a href="#logistics" class="nav-link">Logistics</a>
+                <a href="#eta" class="nav-link">ETA Visa</a>
+                <a href="#home" class="nav-link">The Gully</a>
+                <a href="#weather" class="nav-link">Weather</a>
+                <a href="#tech" class="nav-link">Tech</a>
+                <a href="#driving" class="nav-link">Driving</a>
+                <a href="#culture" class="nav-link">Culture</a>
+                <a href="#cats" class="nav-link">The Cats</a>
+            </div>
         </header>
 
         <!-- 1. Travel Logistics -->
-        <div class="section-card border-t-4 border-slate-900">
-            <h2 class="text-xl md:text-2xl mb-4 text-slate-800 border-b pb-2">Travel Logistics</h2>
+        <div id="logistics" class="section-card border-t-4 border-slate-900">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 border-b pb-4 mb-6">
+                <h2 class="text-xl md:text-2xl text-slate-800">Travel Logistics</h2>
+                <!-- ITINERARY DOWNLOAD BUTTONS -->
+                <div class="flex gap-2 w-full md:w-auto">
+                    <a href="summary-itinerary.pdf" download class="download-pill bg-slate-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        1-Page Summary
+                    </a>
+                    <a href="detailed-itinerary.pdf" download class="download-pill bg-blue-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        Full Itinerary
+                    </a>
+                </div>
+            </div>
             
             <div class="mb-8">
                 <div class="flex justify-between items-end mb-2">
@@ -250,8 +338,8 @@
                         
                         <!-- Hire Cars -->
                         <div class="md:border-l md:border-emerald-200/50 md:pl-6 space-y-3">
-                            <span class="info-label text-blue-600">Hire Car Collection</span>
-                            <p class="text-[10px] text-slate-500 leading-snug mb-2 italic">Collect immediately upon landing at Melbourne Airport (MEL).</p>
+                            <span class="info-label text-blue-600">Hertz Collection (MEL)</span>
+                            <p class="text-[10px] text-slate-500 leading-snug mb-1 italic">Fullsize SUV 7 Seat (E1): Toyota Kluger or similar.</p>
                             <div class="car-container py-2 px-3 flex justify-between items-center">
                                 <span class="text-[9px] font-bold text-blue-600 uppercase">Car 1</span>
                                 <span class="text-xs font-bold text-slate-700">Blair & Chris</span>
@@ -307,7 +395,7 @@
         </div>
 
         <!-- 2. ETA Process -->
-        <div class="section-card bg-slate-900 text-white">
+        <div id="eta" class="section-card bg-slate-900 text-white">
             <h2 class="text-xl md:text-2xl mb-4 font-semibold text-white border-b border-slate-700 pb-2">Detailed ETA Process (Subclass 601)</h2>
             
             <div class="eta-deadline-alert">
@@ -337,7 +425,7 @@
                         <div class="flex-1">
                             <p class="font-bold text-white leading-tight">Download the "Australian ETA" App</p>
                             <p class="mt-0.5 opacity-80">Must be done via mobile app for passport chip reading.</p>
-                            <a href="https://apps.apple.com/us/app/australianeta/id1527982364" target="_blank" class="download-pill">
+                            <a href="https://apps.apple.com/us/app/australianeta/id1527982364" target="_blank" class="download-pill py-1.5 mt-2">
                                 <svg class="w-3 h-3 fill-current" viewBox="0 0 384 512"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
                                 Download for iOS
                             </a>
@@ -362,7 +450,7 @@
         </div>
 
         <!-- 3. Home Base -->
-        <div class="section-card border-t-4 border-slate-800">
+        <div id="home" class="section-card border-t-4 border-slate-800">
             <h2 class="text-xl md:text-2xl text-slate-800 border-b pb-2 mb-4">Home Base: "The Gully"</h2>
             
             <div class="space-y-4">
@@ -401,47 +489,113 @@
             </div>
         </div>
 
-        <!-- 4. Weather Warning -->
-        <div class="section-card border-l-4 border-amber-400">
-            <h2 class="text-xl md:text-2xl mb-4 text-slate-800">Weather: "Four Seasons in One Day"</h2>
-            <div class="warning-box mb-4">
-                <p class="text-[11px] md:text-sm text-amber-800 leading-relaxed italic">Victoria’s climate is volatile. Expect 15-degree drops in under an hour as Southern Ocean winds sweep in. Be prepared for sun, rain, and a sharp "Cool Change" in a single afternoon.</p>
-            </div>
+        <!-- 4. Weather & The Change -->
+        <div id="weather" class="section-card border-l-4 border-amber-500">
+            <h2 class="text-xl md:text-2xl mb-4 text-slate-800 border-b pb-2">Weather & Climate</h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="text-[11px] md:text-sm text-slate-600 space-y-2">
-                    <p><strong>Packing:</strong> Bring a light, windproof jacket even on clear days.</p>
-                    <p><strong>UV Warning:</strong> The Australian sun is intense. High-SPF sunscreen and hats are non-negotiable.</p>
+            <div class="mb-6 rounded-xl border border-red-100 overflow-hidden shadow-sm">
+                <div class="bg-red-500 px-4 py-2 flex justify-between items-center">
+                    <span class="text-white text-[10px] font-black uppercase tracking-wider flex items-center gap-2">
+                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z"/></svg>
+                        Wedding Photo Alert
+                    </span>
+                    <span class="bg-white text-red-600 text-[9px] font-black px-2 py-0.5 rounded-full">UV INDEX: 11+</span>
                 </div>
-                <div class="bg-slate-50 p-3 rounded-lg text-[10px] md:text-xs space-y-1">
-                    <div class="flex justify-between border-b pb-1"><span>Afternoon Peak</span><span class="font-bold">22°C (72°F)</span></div>
-                    <div class="flex justify-between border-b pb-1 text-blue-600"><span>Post-Change Shift</span><span class="font-bold">14°C (57°F)</span></div>
-                    <div class="flex justify-between text-blue-800"><span>Coastal Evening</span><span class="font-bold">8°C (46°F)</span></div>
+                <div class="bg-white p-4">
+                    <p class="text-slate-800 text-xs font-semibold leading-relaxed">
+                        The Australian sun is significantly harsher than in the US. Even on "mild" days, <strong>unprotected skin</strong> will burn in under <span class="text-red-600 underline decoration-2">15 minutes</span>.
+                    </p>
+                    <div class="uv-danger-bar my-3"></div>
+                    <p class="text-slate-500 text-[10px] leading-snug italic">
+                        The sun doesn't care about your complexion—olive skin burns just as dangerously. Apply SPF 50+ every morning.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mb-8 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
+                <h3 class="text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-3">March/April Averages (Geelong/Torquay)</h3>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <span class="info-label">Daily High</span>
+                        <p class="text-lg md:text-xl font-black text-slate-800">21°C <span class="text-[10px] text-slate-400 font-normal">70°F</span></p>
+                    </div>
+                    <div class="text-center">
+                        <span class="info-label">Daily Low</span>
+                        <p class="text-lg md:text-xl font-black text-slate-800">11°C <span class="text-[10px] text-slate-400 font-normal">52°F</span></p>
+                    </div>
+                    <div class="text-center">
+                        <span class="info-label">Ocean Temp</span>
+                        <p class="text-lg md:text-xl font-black text-slate-800">17°C <span class="text-[10px] text-slate-400 font-normal">63°F</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-6">
+                <div>
+                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Understanding "The Cool Change"</h3>
+                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-1">
+                        <div class="grid grid-cols-2 gap-1 text-center">
+                            <div class="bg-amber-50 rounded-lg p-4">
+                                <span class="text-[10px] font-black text-amber-600 uppercase">2:00 PM</span>
+                                <div class="my-2">
+                                    <span class="text-3xl font-black text-slate-800">35°C</span>
+                                    <span class="block text-[10px] text-slate-400 font-bold uppercase">95°F • Hot</span>
+                                </div>
+                                <p class="text-[9px] text-amber-800 font-medium leading-tight">North wind from the desert. Very dry.</p>
+                            </div>
+                            <div class="bg-blue-50 rounded-lg p-4">
+                                <span class="text-[10px] font-black text-blue-600 uppercase">2:30 PM</span>
+                                <div class="my-2">
+                                    <span class="text-3xl font-black text-slate-800">18°C</span>
+                                    <span class="block text-[10px] text-slate-400 font-bold uppercase">64°F • Cold</span>
+                                </div>
+                                <p class="text-[9px] text-blue-800 font-medium leading-tight">South wind from the Antarctic. 40mph.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white border border-slate-100 p-4 rounded-xl shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                            </div>
+                            <p class="text-xs font-bold text-slate-800 uppercase">Slip, Slop, Slap</p>
+                        </div>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">It's the national motto: <strong>Slip</strong> on a shirt, <strong>Slop</strong> on sunscreen, <strong>Slap</strong> on a hat.</p>
+                    </div>
+                    <div class="bg-white border border-slate-100 p-4 rounded-xl shadow-sm">
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            </div>
+                            <p class="text-xs font-bold text-slate-800 uppercase">The Jacket Rule</p>
+                        </div>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">Always keep a windbreaker in the car. Temperatures can drop significantly in minutes.</p>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- 5. Tech & Power -->
-        <div class="section-card border-t-4 border-indigo-600">
+        <div id="tech" class="section-card border-t-4 border-indigo-600">
             <h2 class="text-xl md:text-2xl text-slate-800 border-b pb-2 mb-4">Tech & Power Checklist</h2>
             
             <div class="space-y-3">
                 <p class="text-[11px] md:text-sm font-bold text-slate-700">Check the physical label on every device plug:</p>
-                
                 <div class="voltage-status status-pass">
                     <div class="font-bold text-lg">✓</div>
                     <p class="text-[11px] md:text-xs"><strong>SAFE:</strong> If the label says <strong>"100-240V"</strong>, just use a plug adapter.</p>
                 </div>
-
                 <div class="voltage-status status-fail">
                     <div class="font-bold text-lg">✕</div>
                     <p class="text-[11px] md:text-xs"><strong>DANGER:</strong> If the label says <strong>"110V ONLY"</strong>, it will fry. Do not bring.</p>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
                     <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
                         <span class="info-label">Physical Adapter</span>
-                        <p class="text-[11px] text-slate-600 leading-tight">You need a <strong>Type I</strong> (3-pin slanted) adapter. <a href="https://www.amazon.com/Best-Australia-Power-Adapter-Type/s?k=best+australia+power+adapter+type+i" target="_blank" class="text-indigo-600 underline">Buy on Amazon →</a></p>
+                        <p class="text-[11px] text-slate-600 leading-tight">You need a <strong>Type I</strong> (3-pin slanted) adapter.</p>
                     </div>
                     <div class="p-3 bg-slate-900 text-white rounded-lg">
                         <span class="info-label text-indigo-400">The Wall Switch</span>
@@ -452,56 +606,50 @@
         </div>
 
         <!-- 6. Driving in Australia -->
-        <div class="section-card border-t-4 border-red-600">
+        <div id="driving" class="section-card border-t-4 border-red-600">
             <h2 class="text-xl md:text-2xl text-slate-800 border-b pb-2">Driving Tips</h2>
             <div class="warning-box my-4">
                 <p class="text-red-900 font-bold mb-1 text-[11px] uppercase">Speed Cameras</p>
-                <p class="text-[11px] text-red-800 leading-relaxed">Victoria has zero-tolerance enforcement. Cameras trigger even 3km/h over. Stick strictly to signed limits.</p>
+                <p class="text-[11px] text-red-800 leading-relaxed">Victoria has zero-tolerance enforcement. Stick strictly to signed limits.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] text-slate-600 leading-snug">
                 <div class="space-y-3">
-                    <p><strong>Look Right First:</strong> When entering roads, traffic approaches from your right. Mirror your instincts.</p>
-                    <p><strong>Roundabouts:</strong> Travel clockwise. Give way to vehicles already in the circle (approaching from your right).</p>
+                    <p><strong>Look Right First:</strong> When entering roads, traffic approaches from your right.</p>
+                    <p><strong>Roundabouts:</strong> Travel clockwise. Give way to vehicles already in the circle.</p>
                 </div>
                 <div class="space-y-3">
-                    <p><strong>No Left on Red:</strong> Illegal unless a sign specifically allows it. Always wait for the green light.</p>
-                    <p><strong>Wildlife:</strong> Kangaroos are a major risk at dusk. If you see one, assume others are nearby.</p>
+                    <p><strong>No Left on Red:</strong> Illegal unless a sign specifically allows it.</p>
+                    <p><strong>Wildlife:</strong> Kangaroos are a major risk at dusk.</p>
                 </div>
             </div>
         </div>
 
         <!-- 7. Culture & Dining -->
-        <div class="section-card border-t-4 border-orange-500">
+        <div id="culture" class="section-card border-t-4 border-orange-500">
             <h2 class="text-xl md:text-2xl text-slate-800 border-b pb-2">Aussie Culture & Dining</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div class="border-b md:border-b-0 pb-2 md:pb-0">
                     <span class="tip-badge">The "Parmi"</span>
-                    <p class="text-xs text-slate-600">Standard pub meal (Chicken Parmigiana) served with chips and salad. Must be called a "Parmi."</p>
-                </div>
-                <div class="border-b md:border-b-0 pb-2 md:pb-0">
-                    <span class="tip-badge">Beer Sizes</span>
-                    <p class="text-xs text-slate-600"><strong>Pot:</strong> 10oz | <strong>Schooner:</strong> 15oz | <strong>Pint:</strong> 20oz. Victoria favors Pots and Pints.</p>
+                    <p class="text-xs text-slate-600">Chicken Parmigiana served with chips and salad.</p>
                 </div>
                 <div class="border-b md:border-b-0 pb-2 md:pb-0">
                     <span class="tip-badge">Coffee</span>
-                    <p class="text-xs text-slate-600">Order a <strong>Flat White</strong> (velvety milk) or <strong>Long Black</strong> (Americano style). No "regular" drip coffee.</p>
+                    <p class="text-xs text-slate-600">Order a <strong>Flat White</strong> or <strong>Long Black</strong>.</p>
                 </div>
                 <div>
                     <span class="tip-badge">Tipping</span>
-                    <p class="text-xs text-slate-600"><strong>Not expected.</strong> Tax (GST) is included in menu prices. The price you see is what you pay.</p>
+                    <p class="text-xs text-slate-600"><strong>Not expected.</strong> Tax is included in menu prices.</p>
                 </div>
             </div>
         </div>
 
         <!-- 8. Geelong Cats -->
-        <div class="cats-section mb-10">
+        <div id="cats" class="cats-section mb-10">
             <div class="hoops-pattern"></div>
-            
             <div class="text-center mb-4 mt-2">
                 <h2 class="text-2xl font-black italic uppercase leading-none tracking-tighter text-white">Geelong Cats</h2>
                 <p class="text-[8px] uppercase font-bold text-blue-200 mt-1 tracking-[0.2em]">AFL Essentials</p>
             </div>
-
             <div class="bg-white/5 rounded-xl p-3 border border-white/10 mb-4">
                 <div class="goalpost-grid">
                     <div class="text-center">
@@ -520,37 +668,33 @@
                         <div class="post post-outer w-full mt-1"></div>
                     </div>
                 </div>
-                <p class="text-[8px] text-center opacity-70 italic mt-2">Scoreboards show: <strong>Goals . Behind . Total</strong> (e.g. 10.8.68)</p>
             </div>
-
-            <div class="space-y-3">
-                <div class="rule-card">
-                    <span class="info-label text-blue-900/40 mb-1">Key Game Terms</span>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 text-[10px] font-semibold text-blue-950">
-                        <p><span class="text-blue-600">●</span> <strong>The Mark:</strong> Catch the ball from a kick (>15m) and get a free, unhindered kick.</p>
-                        <p><span class="text-blue-600">●</span> <strong>Handball:</strong> No throwing! Ball must be punched off the palm of the other hand.</p>
-                        <p><span class="text-blue-600">●</span> <strong>Holding the Ball:</strong> Tackled? You must release the ball immediately. Don't "prioritize" it.</p>
-                        <p><span class="text-blue-600">●</span> <strong>50m Penalty:</strong> If a player slows down a free kick, the umpire moves the ball 50m forward.</p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-                    <div class="rule-card bg-blue-50">
-                        <span class="info-label text-blue-900/40 mb-1">Fan Lingo</span>
-                        <p class="text-[10px] text-blue-900 leading-tight">
-                            When an umpire misses a tackle call, the crowd yells <strong>"BAAALLL!"</strong> at the top of their lungs.
-                        </p>
-                    </div>
-                    <div class="rule-card bg-blue-50">
-                        <span class="info-label text-blue-900/40 mb-1">NY Connection</span>
-                        <p class="text-[10px] text-blue-900 leading-tight">
-                            Geelong icon <strong>Graeme Lloyd</strong> won 2 World Series with the <strong>NY Yankees</strong> ('96 & '98)!
-                        </p>
-                    </div>
+            <div class="rule-card">
+                <span class="info-label text-blue-900/40 mb-1">Key Game Terms</span>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 text-[10px] font-semibold text-blue-950">
+                    <p><span class="text-blue-600">●</span> <strong>The Mark:</strong> Catch the ball from a kick to get a free kick.</p>
+                    <p><span class="text-blue-600">●</span> <strong>Handball:</strong> No throwing! Must be punched off the palm.</p>
                 </div>
             </div>
         </div>
 
         <footer class="text-center text-slate-400 text-[10px] pb-10 uppercase tracking-widest">Geelong & The Surf Coast • 2026</footer>
     </div>
+
+    <!-- Floating Top Button -->
+    <a href="#top" id="backToTop" aria-label="Back to top">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg>
+    </a>
+
+    <script>
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+    </script>
 </body>
 </html>

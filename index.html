@@ -244,6 +244,7 @@
             transform: translateY(-1px);
         }
 
+        /* Floating Scroll Button */
         #backToTop {
             position: fixed;
             bottom: 20px;
@@ -301,7 +302,6 @@
         <div id="logistics" class="section-card border-t-4 border-slate-900">
             <div class="flex flex-col md:flex-row md:justify-between md:items-center gap-4 border-b pb-4 mb-6">
                 <h2 class="text-xl md:text-2xl text-slate-800">Travel Logistics</h2>
-                <!-- ITINERARY DOWNLOAD BUTTONS -->
                 <div class="flex gap-2 w-full md:w-auto">
                     <a href="summary-itinerary.pdf" download class="download-pill bg-slate-600">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
@@ -322,7 +322,6 @@
                 
                 <div class="arrival-container shadow-sm border border-emerald-100">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Flights -->
                         <div class="space-y-4">
                             <div>
                                 <span class="info-label text-emerald-600/70">JFK Departure (DL738)</span>
@@ -335,8 +334,6 @@
                                 <p class="text-[10px] text-slate-400 uppercase mt-0.5">Terminal 2 International</p>
                             </div>
                         </div>
-                        
-                        <!-- Hire Cars -->
                         <div class="md:border-l md:border-emerald-200/50 md:pl-6 space-y-3">
                             <span class="info-label text-blue-600">Hertz Collection (MEL)</span>
                             <p class="text-[10px] text-slate-500 leading-snug mb-1 italic">Fullsize SUV 7 Seat (E1): Toyota Kluger or similar.</p>
@@ -507,7 +504,7 @@
                     </p>
                     <div class="uv-danger-bar my-3"></div>
                     <p class="text-slate-500 text-[10px] leading-snug italic">
-                        The sun doesn't care about your complexion—olive skin burns just as dangerously. Apply SPF 50+ every morning.
+                        The sun doesn't care about your complexion—olive skin burns just as dangerously. No one wants to be neon-pink for the ceremony. Apply SPF 50+ every morning.
                     </p>
                 </div>
             </div>
@@ -528,6 +525,7 @@
                         <p class="text-lg md:text-xl font-black text-slate-800">17°C <span class="text-[10px] text-slate-400 font-normal">63°F</span></p>
                     </div>
                 </div>
+                <p class="text-[9px] text-blue-800 mt-3 text-center leading-tight">Expect sunny mornings, breezy afternoons, and crisp evenings. Perfect wedding weather, provided you carry a layer.</p>
             </div>
 
             <div class="space-y-6">
@@ -563,7 +561,7 @@
                             </div>
                             <p class="text-xs font-bold text-slate-800 uppercase">Slip, Slop, Slap</p>
                         </div>
-                        <p class="text-[11px] text-slate-600 leading-relaxed">It's the national motto: <strong>Slip</strong> on a shirt, <strong>Slop</strong> on sunscreen, <strong>Slap</strong> on a hat.</p>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">It's the national motto: <strong>Slip</strong> on a shirt, <strong>Slop</strong> on sunscreen, <strong>Slap</strong> on a hat. Don't underestimate the cloud cover.</p>
                     </div>
                     <div class="bg-white border border-slate-100 p-4 rounded-xl shadow-sm">
                         <div class="flex items-center gap-3 mb-2">
@@ -572,7 +570,7 @@
                             </div>
                             <p class="text-xs font-bold text-slate-800 uppercase">The Jacket Rule</p>
                         </div>
-                        <p class="text-[11px] text-slate-600 leading-relaxed">Always keep a windbreaker in the car. Temperatures can drop significantly in minutes.</p>
+                        <p class="text-[11px] text-slate-600 leading-relaxed">Always keep a windbreaker in the car. When "The Change" hits, you will go from sweating to shivering in minutes.</p>
                     </div>
                 </div>
             </div>
@@ -584,18 +582,21 @@
             
             <div class="space-y-3">
                 <p class="text-[11px] md:text-sm font-bold text-slate-700">Check the physical label on every device plug:</p>
+                
                 <div class="voltage-status status-pass">
                     <div class="font-bold text-lg">✓</div>
                     <p class="text-[11px] md:text-xs"><strong>SAFE:</strong> If the label says <strong>"100-240V"</strong>, just use a plug adapter.</p>
                 </div>
+
                 <div class="voltage-status status-fail">
                     <div class="font-bold text-lg">✕</div>
                     <p class="text-[11px] md:text-xs"><strong>DANGER:</strong> If the label says <strong>"110V ONLY"</strong>, it will fry. Do not bring.</p>
                 </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
                     <div class="p-3 bg-slate-50 rounded-lg border border-slate-200">
                         <span class="info-label">Physical Adapter</span>
-                        <p class="text-[11px] text-slate-600 leading-tight">You need a <strong>Type I</strong> (3-pin slanted) adapter.</p>
+                        <p class="text-[11px] text-slate-600 leading-tight">You need a <strong>Type I</strong> (3-pin slanted) adapter. <a href="https://www.amazon.com/Best-Australia-Power-Adapter-Type/s?k=best+australia+power+adapter+type+i" target="_blank" class="text-indigo-600 underline">Buy on Amazon →</a></p>
                     </div>
                     <div class="p-3 bg-slate-900 text-white rounded-lg">
                         <span class="info-label text-indigo-400">The Wall Switch</span>
@@ -610,16 +611,16 @@
             <h2 class="text-xl md:text-2xl text-slate-800 border-b pb-2">Driving Tips</h2>
             <div class="warning-box my-4">
                 <p class="text-red-900 font-bold mb-1 text-[11px] uppercase">Speed Cameras</p>
-                <p class="text-[11px] text-red-800 leading-relaxed">Victoria has zero-tolerance enforcement. Stick strictly to signed limits.</p>
+                <p class="text-[11px] text-red-800 leading-relaxed">Victoria has zero-tolerance enforcement. Cameras trigger even 3km/h over. Stick strictly to signed limits.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] text-slate-600 leading-snug">
                 <div class="space-y-3">
-                    <p><strong>Look Right First:</strong> When entering roads, traffic approaches from your right.</p>
-                    <p><strong>Roundabouts:</strong> Travel clockwise. Give way to vehicles already in the circle.</p>
+                    <p><strong>Look Right First:</strong> When entering roads, traffic approaches from your right. Mirror your instincts.</p>
+                    <p><strong>Roundabouts:</strong> Travel clockwise. Give way to vehicles already in the circle (approaching from your right).</p>
                 </div>
                 <div class="space-y-3">
-                    <p><strong>No Left on Red:</strong> Illegal unless a sign specifically allows it.</p>
-                    <p><strong>Wildlife:</strong> Kangaroos are a major risk at dusk.</p>
+                    <p><strong>No Left on Red:</strong> Illegal unless a sign specifically allows it. Always wait for the green light.</p>
+                    <p><strong>Wildlife:</strong> Kangaroos are a major risk at dusk. If you see one, assume others are nearby.</p>
                 </div>
             </div>
         </div>
@@ -630,15 +631,19 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                 <div class="border-b md:border-b-0 pb-2 md:pb-0">
                     <span class="tip-badge">The "Parmi"</span>
-                    <p class="text-xs text-slate-600">Chicken Parmigiana served with chips and salad.</p>
+                    <p class="text-xs text-slate-600">Standard pub meal (Chicken Parmigiana) served with chips and salad. Must be called a "Parmi."</p>
+                </div>
+                <div class="border-b md:border-b-0 pb-2 md:pb-0">
+                    <span class="tip-badge">Beer Sizes</span>
+                    <p class="text-xs text-slate-600"><strong>Pot:</strong> 10oz | <strong>Schooner:</strong> 15oz | <strong>Pint:</strong> 20oz. Victoria favors Pots and Pints.</p>
                 </div>
                 <div class="border-b md:border-b-0 pb-2 md:pb-0">
                     <span class="tip-badge">Coffee</span>
-                    <p class="text-xs text-slate-600">Order a <strong>Flat White</strong> or <strong>Long Black</strong>.</p>
+                    <p class="text-xs text-slate-600">Order a <strong>Flat White</strong> (velvety milk) or <strong>Long Black</strong> (Americano style). No "regular" drip coffee.</p>
                 </div>
                 <div>
                     <span class="tip-badge">Tipping</span>
-                    <p class="text-xs text-slate-600"><strong>Not expected.</strong> Tax is included in menu prices.</p>
+                    <p class="text-xs text-slate-600"><strong>Not expected.</strong> Tax (GST) is included in menu prices. The price you see is what you pay.</p>
                 </div>
             </div>
         </div>
@@ -646,10 +651,12 @@
         <!-- 8. Geelong Cats -->
         <div id="cats" class="cats-section mb-10">
             <div class="hoops-pattern"></div>
+            
             <div class="text-center mb-4 mt-2">
                 <h2 class="text-2xl font-black italic uppercase leading-none tracking-tighter text-white">Geelong Cats</h2>
                 <p class="text-[8px] uppercase font-bold text-blue-200 mt-1 tracking-[0.2em]">AFL Essentials</p>
             </div>
+
             <div class="bg-white/5 rounded-xl p-3 border border-white/10 mb-4">
                 <div class="goalpost-grid">
                     <div class="text-center">
@@ -668,12 +675,32 @@
                         <div class="post post-outer w-full mt-1"></div>
                     </div>
                 </div>
+                <p class="text-[8px] text-center opacity-70 italic mt-2">Scoreboards show: <strong>Goals . Behind . Total</strong> (e.g. 10.8.68)</p>
             </div>
-            <div class="rule-card">
-                <span class="info-label text-blue-900/40 mb-1">Key Game Terms</span>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 text-[10px] font-semibold text-blue-950">
-                    <p><span class="text-blue-600">●</span> <strong>The Mark:</strong> Catch the ball from a kick to get a free kick.</p>
-                    <p><span class="text-blue-600">●</span> <strong>Handball:</strong> No throwing! Must be punched off the palm.</p>
+
+            <div class="space-y-3">
+                <div class="rule-card">
+                    <span class="info-label text-blue-900/40 mb-1">Key Game Terms</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-2 text-[10px] font-semibold text-blue-950">
+                        <p><span class="text-blue-600">●</span> <strong>The Mark:</strong> Catch the ball from a kick (>15m) and get a free, unhindered kick.</p>
+                        <p><span class="text-blue-600">●</span> <strong>Handball:</strong> No throwing! Ball must be punched off the palm of the other hand.</p>
+                        <p><span class="text-blue-600">●</span> <strong>Holding the Ball:</strong> Tackled? You must release the ball immediately. Don't "prioritize" it.</p>
+                        <p><span class="text-blue-600">●</span> <strong>50m Penalty:</strong> If a player slows down a free kick, the umpire moves the ball 50m forward.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                    <div class="rule-card bg-blue-50">
+                        <span class="info-label text-blue-900/40 mb-1">Fan Lingo</span>
+                        <p class="text-[10px] text-blue-900 leading-tight">
+                            When an umpire misses a tackle call, the crowd yells <strong>"BAAALLL!"</strong> at the top of their lungs.
+                        </p>
+                    </div>
+                    <div class="rule-card bg-blue-50">
+                        <span class="info-label text-blue-900/40 mb-1">NY Connection</span>
+                        <p class="text-[10px] text-blue-900 leading-tight">
+                            Geelong icon <strong>Graeme Lloyd</strong> won 2 World Series with the <strong>NY Yankees</strong> ('96 & '98)!
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -681,7 +708,6 @@
         <footer class="text-center text-slate-400 text-[10px] pb-10 uppercase tracking-widest">Geelong & The Surf Coast • 2026</footer>
     </div>
 
-    <!-- Floating Top Button -->
     <a href="#top" id="backToTop" aria-label="Back to top">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 15l7-7 7 7"/></svg>
     </a>

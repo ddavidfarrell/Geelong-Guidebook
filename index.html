@@ -2,8 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Wedding Trip Guide - Victoria 2026</title>
+    
+    <!-- PWA / iOS Home Screen Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Aus Trip">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600;700&display=swap');
@@ -17,6 +23,7 @@
             background-color: #fcfcfd; 
             color: #334155; 
             -webkit-font-smoothing: antialiased;
+            padding-top: env(safe-area-inset-top);
         }
         
         h1, h2 { font-family: 'Playfair Display', serif; }
@@ -275,9 +282,72 @@
             width: 100%;
             margin-top: 4px;
         }
+
+        /* iOS Install Popup Styles */
+        #pwa-popup {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #pwa-popup.show {
+            transform: translateY(0);
+        }
+        .popup-content {
+            background: white;
+            border-radius: 24px 24px 16px 16px;
+            padding: 24px;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .ios-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 4px;
+        }
     </style>
 </head>
 <body class="py-6 px-4 md:px-0">
+    <!-- iOS Install Prompt -->
+    <div id="pwa-popup">
+        <div class="popup-content">
+            <div class="flex justify-between items-start mb-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 bg-slate-900 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg">AUS</div>
+                    <div>
+                        <h3 class="font-bold text-slate-900 leading-none">Trip Guide App</h3>
+                        <p class="text-xs text-slate-500 mt-1">Add to home screen for offline use</p>
+                    </div>
+                </div>
+                <button onclick="hidePopup()" class="text-slate-300 hover:text-slate-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            
+            <div class="space-y-4 py-2 border-t border-slate-100 mt-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-sm">1</div>
+                    <p class="text-sm text-slate-600">Tap the <strong>Share</strong> icon below <img src="https://img.icons8.com/ios/50/share-rounded.png" class="ios-icon" alt="share"></p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-bold text-sm">2</div>
+                    <p class="text-sm text-slate-600">Scroll down and tap <strong>Add to Home Screen</strong> <img src="https://img.icons8.com/ios/50/plus-math.png" class="ios-icon" alt="plus"></p>
+                </div>
+            </div>
+            
+            <button onclick="hidePopup()" class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl mt-4 active:bg-blue-700 transition-colors">
+                Got it
+            </button>
+        </div>
+    </div>
+
     <div class="max-w-2xl mx-auto">
         
         <!-- Header -->
@@ -285,6 +355,13 @@
             <h1 class="text-3xl md:text-5xl text-slate-900 leading-tight">Geelong & The Surf Coast 2026</h1>
             <p class="text-base md:text-lg text-slate-500 mt-2 md:mt-4 italic font-light">March 20 — April 3</p>
             
+            <div class="mt-4 flex justify-center">
+                <button onclick="showPopup()" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full border border-blue-100">
+                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                    App Setup Instructions
+                </button>
+            </div>
+
             <!-- Mobile Section Links -->
             <div class="mt-6 flex overflow-x-auto pb-2 gap-2 no-scrollbar px-2 -mx-2 md:mx-0 md:justify-center">
                 <a href="#logistics" class="nav-link">Logistics</a>
@@ -487,90 +564,89 @@
         </div>
 
         <!-- 4. Weather & The Change -->
-        <div id="weather" class="section-card border-l-4 border-amber-500">
-            <h2 class="text-xl md:text-2xl mb-4 text-slate-800 border-b pb-2">Weather & Climate</h2>
+        <div id="weather" class="section-card border-l-4 border-amber-500 bg-slate-50/30">
+            <div class="flex items-center justify-between border-b pb-2 mb-4">
+                <h2 class="text-xl md:text-2xl text-slate-800">Weather & Climate</h2>
+                <div class="text-[9px] font-black bg-blue-600 text-white px-2 py-1 rounded uppercase tracking-tighter">"Four Seasons in One Day"</div>
+            </div>
             
-            <div class="mb-6 rounded-xl border border-red-100 overflow-hidden shadow-sm">
+            <div class="mb-6 rounded-xl border border-red-200 overflow-hidden shadow-sm">
                 <div class="bg-red-500 px-4 py-2 flex justify-between items-center">
                     <span class="text-white text-[10px] font-black uppercase tracking-wider flex items-center gap-2">
                         <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-11v6h2v-6h-2zm0-4v2h2V7h-2z"/></svg>
                         Wedding Photo Alert
                     </span>
-                    <span class="bg-white text-red-600 text-[9px] font-black px-2 py-0.5 rounded-full">UV INDEX: 11+</span>
+                    <span class="bg-white text-red-600 text-[9px] font-black px-2 py-0.5 rounded-full">UV INDEX: 11+ (EXTREME)</span>
                 </div>
                 <div class="bg-white p-4">
                     <p class="text-slate-800 text-xs font-semibold leading-relaxed">
-                        The Australian sun is significantly harsher than in the US. Even on "mild" days, <strong>unprotected skin</strong> will burn in under <span class="text-red-600 underline decoration-2">15 minutes</span>.
+                        The Australian sun is a different beast. Even on a breezy 70°F day, <strong>unprotected skin</strong> will burn dangerously in under <span class="text-red-600 underline decoration-2">15 minutes</span>.
                     </p>
                     <div class="uv-danger-bar my-3"></div>
                     <p class="text-slate-500 text-[10px] leading-snug italic">
-                        The sun doesn't care about your complexion—olive skin burns just as dangerously. No one wants to be neon-pink for the ceremony. Apply SPF 50+ every morning.
+                        The hole in the ozone layer is real. Apply SPF 50+ every morning, even if it looks cloudy. No one wants to be neon-pink for the wedding ceremony.
                     </p>
                 </div>
             </div>
 
-            <div class="mb-8 p-4 bg-blue-50/50 rounded-xl border border-blue-100">
-                <h3 class="text-[10px] font-bold uppercase tracking-widest text-blue-600 mb-3">March/April Averages (Geelong/Torquay)</h3>
-                <div class="grid grid-cols-3 gap-4">
-                    <div class="text-center">
-                        <span class="info-label">Daily High</span>
-                        <p class="text-lg md:text-xl font-black text-slate-800">21°C <span class="text-[10px] text-slate-400 font-normal">70°F</span></p>
-                    </div>
-                    <div class="text-center">
-                        <span class="info-label">Daily Low</span>
-                        <p class="text-lg md:text-xl font-black text-slate-800">11°C <span class="text-[10px] text-slate-400 font-normal">52°F</span></p>
-                    </div>
-                    <div class="text-center">
-                        <span class="info-label">Ocean Temp</span>
-                        <p class="text-lg md:text-xl font-black text-slate-800">17°C <span class="text-[10px] text-slate-400 font-normal">63°F</span></p>
-                    </div>
-                </div>
-                <p class="text-[9px] text-blue-800 mt-3 text-center leading-tight">Expect sunny mornings, breezy afternoons, and crisp evenings. Perfect wedding weather, provided you carry a layer.</p>
+            <!-- Contextual Header for the Change -->
+            <div class="mb-4">
+                <h3 class="text-xs font-black uppercase tracking-widest text-blue-800 flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+                    The "Cool Change" Reality
+                </h3>
+                <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">
+                    Geelong and Torquay sit directly in the path of cold air sweeping up from the <span class="text-blue-600 font-bold">Southern Ocean/Antarctica</span>. In March and April, this creates a volatile atmospheric collision. It's not a possibility—it's a <strong>seasonal guarantee</strong>.
+                </p>
             </div>
 
-            <div class="space-y-6">
-                <div>
-                    <h3 class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-3">Understanding "The Cool Change"</h3>
-                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-1">
-                        <div class="grid grid-cols-2 gap-1 text-center">
-                            <div class="bg-amber-50 rounded-lg p-4">
-                                <span class="text-[10px] font-black text-amber-600 uppercase">2:00 PM</span>
-                                <div class="my-2">
-                                    <span class="text-3xl font-black text-slate-800">35°C</span>
-                                    <span class="block text-[10px] text-slate-400 font-bold uppercase">95°F • Hot</span>
-                                </div>
-                                <p class="text-[9px] text-amber-800 font-medium leading-tight">North wind from the desert. Very dry.</p>
-                            </div>
-                            <div class="bg-blue-50 rounded-lg p-4">
-                                <span class="text-[10px] font-black text-blue-600 uppercase">2:30 PM</span>
-                                <div class="my-2">
-                                    <span class="text-3xl font-black text-slate-800">18°C</span>
-                                    <span class="block text-[10px] text-slate-400 font-bold uppercase">64°F • Cold</span>
-                                </div>
-                                <p class="text-[9px] text-blue-800 font-medium leading-tight">South wind from the Antarctic. 40mph.</p>
-                            </div>
+            <div class="mb-6 bg-white border border-slate-200 rounded-xl p-2 shadow-inner">
+                <div class="grid grid-cols-2 gap-1 text-center">
+                    <div class="bg-amber-50/80 rounded-lg p-4 relative overflow-hidden">
+                        <span class="text-[9px] font-black text-amber-600 uppercase tracking-widest">Normal Morning</span>
+                        <div class="my-2">
+                            <span class="text-3xl md:text-4xl font-black text-slate-800">32°C</span>
+                            <span class="block text-[10px] text-slate-400 font-bold uppercase">90°F • Blue Skies</span>
                         </div>
+                        <p class="text-[9px] text-amber-800 font-medium leading-tight">North wind from the desert. Hot & Dry.</p>
+                    </div>
+                    <div class="bg-blue-600 rounded-lg p-4 relative">
+                        <span class="text-[9px] font-black text-white/70 uppercase tracking-widest">30 Minutes Later</span>
+                        <div class="my-2">
+                            <span class="text-3xl md:text-4xl font-black text-white">15°C</span>
+                            <span class="block text-[10px] text-white/60 font-bold uppercase">59°F • Gale Force</span>
+                        </div>
+                        <p class="text-[9px] text-white font-medium leading-tight">The "Buster" hits. Southern Ocean wind.</p>
                     </div>
                 </div>
+            </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-white border border-slate-100 p-4 rounded-xl shadow-sm">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
-                            </div>
-                            <p class="text-xs font-bold text-slate-800 uppercase">Slip, Slop, Slap</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                         </div>
-                        <p class="text-[11px] text-slate-600 leading-relaxed">It's the national motto: <strong>Slip</strong> on a shirt, <strong>Slop</strong> on sunscreen, <strong>Slap</strong> on a hat. Don't underestimate the cloud cover.</p>
+                        <p class="text-xs font-black text-slate-800 uppercase">The Layer Rule</p>
                     </div>
-                    <div class="bg-white border border-slate-100 p-4 rounded-xl shadow-sm">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                            </div>
-                            <p class="text-xs font-bold text-slate-800 uppercase">The Jacket Rule</p>
+                    <p class="text-[11px] text-slate-600 leading-relaxed">Because of this volatility, <strong>never</strong> leave your car or house without a light jacket or "jumper." You will start the day in shorts and end it shivering.</p>
+                </div>
+                <div class="bg-white border border-slate-200 p-4 rounded-xl shadow-sm">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-600">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
                         </div>
-                        <p class="text-[11px] text-slate-600 leading-relaxed">Always keep a windbreaker in the car. When "The Change" hits, you will go from sweating to shivering in minutes.</p>
+                        <p class="text-xs font-black text-slate-800 uppercase">March Averages</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-2">
+                        <div>
+                            <span class="info-label">Daily High</span>
+                            <p class="text-sm font-bold">21°C / 70°F</p>
+                        </div>
+                        <div>
+                            <span class="info-label">Daily Low</span>
+                            <p class="text-sm font-bold">11°C / 52°F</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -698,7 +774,7 @@
                     <div class="rule-card bg-blue-50">
                         <span class="info-label text-blue-900/40 mb-1">NY Connection</span>
                         <p class="text-[10px] text-blue-900 leading-tight">
-                            Geelong icon <strong>Graeme Lloyd</strong> won 2 World Series with the <strong>NY Yankees</strong> ('96 & '98)!
+                            Geelong local <strong>Graeme Lloyd</strong> won 2 World Series with the <strong>NY Yankees</strong> ('96 & '98)!
                         </p>
                     </div>
                 </div>
@@ -714,11 +790,38 @@
 
     <script>
         const backToTop = document.getElementById('backToTop');
+        const popup = document.getElementById('pwa-popup');
+
+        // Scroll listener for back to top button
         window.addEventListener('scroll', () => {
             if (window.scrollY > 400) {
                 backToTop.classList.add('visible');
             } else {
                 backToTop.classList.remove('visible');
+            }
+        });
+
+        // Function to show the popup
+        function showPopup() {
+            popup.classList.add('show');
+        }
+
+        // Function to hide the popup
+        function hidePopup() {
+            popup.classList.remove('show');
+            // Save preference so it doesn't show again this session
+            sessionStorage.setItem('pwa-prompt-dismissed', 'true');
+        }
+
+        // Auto-detect iOS and show prompt
+        window.addEventListener('load', () => {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            const isStandalone = window.navigator.standalone === true;
+            const isDismissed = sessionStorage.getItem('pwa-prompt-dismissed');
+
+            // Only show if on iOS, not already installed, and not dismissed this session
+            if (isIOS && !isStandalone && !isDismissed) {
+                setTimeout(showPopup, 2000); // 2 second delay for better UX
             }
         });
     </script>
